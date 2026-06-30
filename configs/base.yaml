@@ -1,0 +1,33 @@
+# Base config: real distilbert-base + gpt2, single-GPU defaults.
+# Requires network to download weights on first use.
+name: base
+
+model:
+  encoder_name: distilbert-base-uncased
+  encoder_pretrained: true
+  backbone_name: gpt2
+  backbone_pretrained: true
+  backbone_max_positions: 1024
+  proj_hidden: 128
+  n_prefix: 1
+
+train:
+  lr: 5.0e-5
+  weight_decay: 0.01
+  batch_size: 8
+  epochs: 3
+  grad_accum: 2
+  grad_clip: 1.0
+  amp: bf16
+  warmup_steps: 100
+  device: auto
+  max_seq_len: 128
+  log_every: 20
+  homeostasis_reg: 0.01
+
+data:
+  source: dailydialog
+  max_dialogues: 2000
+  annotate: auto
+  judge_model: claude-opus-4-8
+  data_dir: data_out/base

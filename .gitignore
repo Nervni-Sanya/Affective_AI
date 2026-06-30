@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+
+# EmotiveLLM artifacts (generated; not source)
+checkpoints/
+data_out/
+*.pt
+
+# OS / editor
+.DS_Store
+*.swp

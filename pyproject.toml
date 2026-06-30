@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emotive-llm"
+version = "0.1.0"
+description = "EmotiveLLM (MoonCore-Emotive): a dialogue LLM with a 7-D affective state that conditions generation."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = [
+    "torch>=2.1",
+    "transformers>=4.40",
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+data = ["datasets>=2.18"]
+annotate = ["anthropic>=0.40"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+emotive-chat = "emotive_llm.inference.runtime:_cli"
+
+[tool.setuptools.packages.find]
+include = ["emotive_llm*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]

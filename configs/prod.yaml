@@ -1,0 +1,33 @@
+# Production-scale recipe. Intended to run on GPU elsewhere.
+# Larger backbone, full DailyDialog, AMP + gradient accumulation, multi-epoch.
+name: prod
+
+model:
+  encoder_name: distilbert-base-uncased
+  encoder_pretrained: true
+  backbone_name: gpt2-medium
+  backbone_pretrained: true
+  backbone_max_positions: 1024
+  proj_hidden: 256
+  n_prefix: 4
+
+train:
+  lr: 3.0e-5
+  weight_decay: 0.01
+  batch_size: 16
+  epochs: 5
+  grad_accum: 4
+  grad_clip: 1.0
+  amp: bf16
+  warmup_steps: 500
+  device: auto
+  max_seq_len: 256
+  log_every: 50
+  homeostasis_reg: 0.02
+
+data:
+  source: dailydialog
+  max_dialogues: 11118        # full DailyDialog train split
+  annotate: llm
+  judge_model: claude-opus-4-8
+  data_dir: data_out/prod

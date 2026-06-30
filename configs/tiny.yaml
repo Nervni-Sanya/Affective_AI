@@ -1,0 +1,34 @@
+# Tiny config: random-init mini models. Runs offline on CPU.
+# Used by tests and the quick demo; no model weights are downloaded.
+name: tiny
+
+model:
+  encoder_pretrained: false
+  encoder_dim: 64
+  encoder_layers: 2
+  encoder_heads: 2
+  backbone_pretrained: false
+  backbone_dim: 64
+  backbone_layers: 2
+  backbone_heads: 2
+  backbone_max_positions: 256
+  proj_hidden: 128
+  n_prefix: 1
+
+train:
+  lr: 1.0e-3
+  batch_size: 8
+  epochs: 1
+  max_steps: 20
+  grad_accum: 1
+  amp: off
+  device: cpu
+  max_seq_len: 64
+  log_every: 5
+  homeostasis_reg: 0.01
+
+data:
+  source: synthetic
+  num_synthetic: 128
+  annotate: synthetic
+  data_dir: data_out/tiny

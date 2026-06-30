@@ -1,0 +1,14 @@
+# Core ML stack (CPU wheels work; GPU users install matching CUDA torch separately)
+torch>=2.1
+transformers>=4.40
+numpy>=1.24
+pyyaml>=6.0
+
+# Real-dataset integration (Phase 1 source: DailyDialog)
+datasets>=2.18
+
+# Phase 1 LLM-judge annotation (optional; pipeline falls back to synthetic without it)
+anthropic>=0.40
+
+# Testing
+pytest>=8.0
