@@ -27,8 +27,12 @@ def load_dailydialog_pairs(max_dialogues: int = 1000, split: str = "train") -> L
             "Install with: pip install datasets"
         ) from e
 
-    # DailyDialog ships utterances with trailing spaces; strip them.
-    ds = load_dataset("daily_dialog", split=split, trust_remote_code=True)
+    # datasets>=3 removed script-based loading, so use the parquet mirror of
+    # DailyDialog; fall back to the legacy script id on older versions.
+    try:
+        ds = load_dataset("li2017dailydialog/daily_dialog", split=split)
+    except Exception:  # noqa: BLE001 - older datasets or renamed repo
+        ds = load_dataset("daily_dialog", split=split, trust_remote_code=True)
 
     pairs: List[TurnPair] = []
     for i, ex in enumerate(ds):
